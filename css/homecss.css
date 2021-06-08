@@ -1,0 +1,70 @@
+:root {
+  --font-weight-extralight: 200;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+}
+
+
+body{
+    background-image: url(../images/backimg4.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    font-weight: var(--font-weight-regular);
+    color: white
+}
+
+
+h1, h2{
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+h3, h4{
+  font-weight: var(--font-weight-regular);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: wheat;
+    color: burlywood;
+  }
+  
+  .active {
+    background-color: burlywood;
+  }
+
+  .card{
+    position: static;
+  }
+
+  .card-body{
+    color: darkslategrey;
+  }
+
+  .bg-wheat {
+    background-color: wheat;
+  }
