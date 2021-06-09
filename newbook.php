@@ -6,45 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="homecss.css">
+    <link rel="stylesheet" href="css/homecss.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <br>
-      <ul class="mb-5">
-        <li><a class="active" href="home.html">Home</a></li>
-        <li><a href="library.html">Library</a></li>
-        <li><a href="trade.html">Trade</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul><br><br>
+    <?php require "includes/nav.php" ?>
 
       <div class="container mb-5">
-          <h3>
-              Personal details
-          </h3>
-        <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-            </div>
-        </div><br>
-
-        <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Email" aria-label="Email">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Phone number" aria-label="Phone number">
-            </div>
-        </div><br>
-
-        <input type="text" class="form-control" placeholder="Address" aria-label="Address">
-        <br><br><br>
-
-        <h3 style="color: black;">
+        <h3 style="color: white;">
             Book details
         </h3>
         <div class="row">

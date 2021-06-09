@@ -12,27 +12,13 @@
 </head>
 <body>
     <br>
-      <ul class="mb-5">
-        <li><a class="active" href="#home">Home</a></li>
-        <li><a href="#news">Library</a></li>
-        <li><a href="#news">Trade</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    
-      <div class="container mb-5">
-        <h1>
-            Admin Page
-        </h1>
-        <br><br>
-
-      <div class="container mb-5">
-        <h1>
-          Update Library
-        </h1>
-        <p>Add books or articles here</p>
-        <a href="updatelib.html" type="button" class="btn btn-outline-secondary">Add Book</a>
-      </div><br><br>
-
-      </div>
+    <?php require "includes/nav.php" ?>
+      
+      <center>
+        <h2>
+            Welcome to the Trade Zone
+        </h2><br>
+        <a class="btn btn-secondary"href="newbook.html">Add new book</a>
+      </center>
 </body>
 </html>

@@ -12,12 +12,7 @@
 </head>
 <body>
     <br>
-      <ul class="mb-5">
-        <li><a class="active" href="home.html">Home</a></li>
-        <li><a href="library.html">Library</a></li>
-        <li><a href="trade.html">Trade</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+      <?php require "includes/nav.php" ?>
 
       <div class="container mb-5">
         <h1>
