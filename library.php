@@ -49,8 +49,8 @@
 									</p>
 									<p class="card-text"><small class="text-muted">By Elle Kennedy</small></p>
 									<a class="btn btn-outline-secondary" href="https://api.freepdfconvert.com/d/ae5a206faea8f59930b4edd41542e882">Get Book</a>
-									<a href="http://themistak.chatango.com/" class="btn btn-outline-secondary">Chat</a>
-									<a href="#" class="btn btn-outline-secondary">Video</a>
+									<a href="https://tlk.io/the_mistake" class="btn btn-outline-secondary">Chat</a>
+									<a href="https://app-301423.megameeting.com/meeting/?id=6115840" class="btn btn-outline-secondary">Video</a>
 								</div>
 							</div>
 

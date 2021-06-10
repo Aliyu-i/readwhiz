@@ -40,7 +40,7 @@
           Get started 
         </h1>
         <p>Pick a book from our Library and join a discussion.</p>
-        <a href="library.html" type="button" class="btn btn-outline-secondary">Library</a>
+        <a href="library.php" type="button" class="btn btn-outline-secondary">Library</a>
       </div><br><br>
 
       <div class="container mb-5">
@@ -49,7 +49,7 @@
         </h1>
         <p>Have a book you would like to trade for another ?</p>
         <p>Check out our book trade zone now!</p>
-        <a href="trade.html" type="button" class="btn btn-outline-secondary">Trade</a>
+        <a href="trade.php" type="button" class="btn btn-outline-secondary">Trade</a>
       </div><br><br>
 
       <div class="container mb-5">
@@ -59,7 +59,7 @@
         <p>
           Please feel free to contact us with opinions and problems so we can make your experience better.
         </p>
-        <a href="contact.html" type="button" class="btn btn-outline-secondary">Contact</a>
+        <a href="contact.php" type="button" class="btn btn-outline-secondary">Contact</a>
       </div>
 </body>
 </html>

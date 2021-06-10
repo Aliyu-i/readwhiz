@@ -16,9 +16,11 @@
       
       <center>
         <h2>
-            Welcome to the Trade Zone
+            Welcome to Dashboard
         </h2><br>
-        <a class="btn btn-secondary"href="newbook.php">Add new book</a>
+        <a class="btn btn-secondary"href="lib_newbook.php">Update Library</a>
+        <br><br><br>
+        <a class="btn btn-secondary"href="#">Add Admin</a>
       </center>
 </body>
 </html>

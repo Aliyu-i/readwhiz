@@ -23,28 +23,36 @@
               <input type="text" class="form-control" placeholder="Book Title" aria-label="Book Title">
             </div>
             <div class="col">
-              <input type="text" class="form-control" placeholder="Author" aria-label="Author">
+              <input type="text" class="form-control" placeholder="ISBN" aria-label="ISBN">
             </div>
         </div><br>
 
         <div class="row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="Book Edition" aria-label="Book Edition">
+              <input type="text" class="form-control" placeholder="Author" aria-label="Author">
             </div>
             <div class="col">
                 <input type="text" class="form-control" placeholder="Book Genre" aria-label="Book Genre">
             </div>
+        </div><br>
+        <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Title of interested Book to trade for" aria-label="Interested Book">
+              <input type="text" class="form-control" placeholder="Chatroom link" aria-label="Chatroom link">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Video chat link" aria-label="Video chat link">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Book link" aria-label="Book link">
             </div>
         </div><br>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Select Book condition</option>
-            <option value="1">New</option>
-            <option value="2">Fairly Used</option>
-            <option value="3">Manageable</option>
-          </select>
-      </div><br><br><br>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Summary" aria-label="Summary">
+            </div>
+        </div><br>
+      </div>
+
       <center>
         <button type="button" class="btn btn-success">Submit</button>
       </center>
