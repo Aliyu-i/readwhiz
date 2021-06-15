@@ -20,7 +20,7 @@
         </h2><br>
         <a class="btn btn-secondary"href="lib_newbook.php">Update Library</a>
         <br><br><br>
-        <a class="btn btn-secondary"href="#">Add Admin</a>
+        <a class="btn btn-secondary"href="newadmin.php">Add Admin</a>
       </center>
 </body>
 </html>

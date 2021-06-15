@@ -1,5 +1,69 @@
 <?php
 
+session_start();
+
+require "utils/connect.php";
+
+if (isset($_POST["registerFirstName"])) {
+  // var_dump($_POST);
+  // TODO: verify
+
+  $registerFirstName = $_POST["registerFirstName"];
+  $registerLastName = $_POST["registerLastName"];
+  
+  $registerUsername = $_POST["registerUsername"];
+  
+  $registerEmail = $_POST["registerEmail"];
+  
+  $registerPhone = $_POST["registerPhone"];
+  
+  $registerPassword = $_POST["registerPassword"];
+
+
+
+  $sql = "INSERT INTO `user`(`username`, `firstname`, `lastname`, `email`, `password`, `phone`, `role`)
+  VALUES (:username, :firstname, :lastname, :email, :password, :phone, 'user')";
+  $stmt = $dbh->prepare($sql);
+
+  $stmt->bindParam(":firstname", $registerFirstName);
+  $stmt->bindParam(":lastname", $registerLastName);
+  $stmt->bindParam(":username", $registerUsername);
+  $stmt->bindParam(":email", $registerEmail);
+  $stmt->bindParam(":phone", $registerPhone);
+  $stmt->bindParam(":password", $registerPassword);
+
+  if ($stmt->execute()) {
+    $_SESSION['username'] = $registerUsername;
+    
+    header("Location: index.php");
+  } else {
+    $error = "Unable to sign up.";
+  }
+
+
+}
+
+
+else if (isset($_POST["loginName"])) {
+  $loginName = $_POST["loginName"];
+  $loginPassword = $_POST["loginPassword"];
+
+  // Find the user in the db whose email or username is loginName
+  // and password is loginPassword
+  $sql = "SELECT `username` FROM `user` WHERE (username = :loginName OR email = :loginName) AND password = :password";
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindParam(":loginName", $loginName);
+  $stmt->bindParam(":password", $loginPassword);
+
+  $stmt->execute();
+
+  foreach ($stmt as $row) {
+    $_SESSION['username'] = $row["username"];
+    header("Location: index.php");
+  }
+  
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -65,16 +129,16 @@
     role="tabpanel"
     aria-labelledby="tab-login"
   >
-    <form>
+    <form method="POST" action="">
       <!-- Email input -->
       <div class="form-outline mb-4">
-        <input type="email" id="loginName" class="form-control" />
+        <input type="text" id="loginName" name="loginName" class="form-control" />
         <label class="form-label" for="loginName">Email or username</label>
       </div>
 
       <!-- Password input -->
       <div class="form-outline mb-4">
-        <input type="password" id="loginPassword" class="form-control" />
+        <input type="password" id="loginPassword" name="loginPassword" class="form-control" />
         <label class="form-label" for="loginPassword">Password</label>
       </div>
 
@@ -99,40 +163,52 @@
     role="tabpanel"
     aria-labelledby="tab-register"
   >
-    <form>
+    <form method="POST" action="">
 
-      <!-- Name input -->
+      <!-- First Name input -->
+      <div class="form-outline mb-4"> 
+        <input type="text" id="registerFirstName" name="registerFirstName" class="form-control" />
+        <label class="form-label" for="registerFirstName">First Name</label>
+      </div>
+
+      <!-- Last Name input -->
       <div class="form-outline mb-4">
-        <input type="text" id="registerName" class="form-control" />
-        <label class="form-label" for="registerName">Name</label>
+        <input type="text" id="registerLastName" name="registerLastName" class="form-control" />
+        <label class="form-label" for="registerLastName">Last Name</label>
       </div>
 
       <!-- Username input -->
       <div class="form-outline mb-4">
-        <input type="text" id="registerUsername" class="form-control" />
+        <input type="text" id="registerUsername" name="registerUsername" class="form-control" />
         <label class="form-label" for="registerUsername">Username</label>
       </div>
 
       <!-- Email input -->
       <div class="form-outline mb-4">
-        <input type="email" id="registerEmail" class="form-control" />
+        <input type="email" id="registerEmail" name="registerEmail" class="form-control" />
         <label class="form-label" for="registerEmail">Email</label>
+      </div>
+
+      <!-- Phone input -->
+      <div class="form-outline mb-4">
+        <input type="tel" id="registerPhone" name="registerPhone" class="form-control" />
+        <label class="form-label" for="registerPhone">Phone</label>
       </div>
 
       <!-- Password input -->
       <div class="form-outline mb-4">
-        <input type="password" id="registerPassword" class="form-control" />
+        <input type="password" id="registerPassword" name="registerPassword" class="form-control" />
         <label class="form-label" for="registerPassword">Password</label>
       </div>
 
       <!-- Repeat Password input -->
       <div class="form-outline mb-4">
-        <input type="password" id="registerRepeatPassword" class="form-control" />
+        <input type="password" id="registerRepeatPassword" name="registerRepeatPassword" class="form-control" />
         <label class="form-label" for="registerRepeatPassword">Repeat password</label>
       </div>
 
       <!-- Submit button -->
-      <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+      <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
     </form>
   </div>
 </div>
