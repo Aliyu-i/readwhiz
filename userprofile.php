@@ -13,14 +13,19 @@
 <body>
     <br>
     <?php require "includes/nav.php" ?>
-      
-      <center>
-        <h2>
-            Welcome to Admin Dashboard
-        </h2><br>
-        <a class="btn btn-secondary"href="lib_newbook.php">Update Library</a>
-        <br><br><br>
-        <a class="btn btn-secondary"href="newadmin.php">Add Admin</a>
+    <div class="container">
+
+    Username: <br>
+    First Name: <br>
+    Last Name:  <br>
+    Email:  <br>
+    Phone:  <br>
+
+    <center>
+        <button type="button" class="btn btn-success">Update Profile</button>
       </center>
+
+    </div>
+
 </body>
 </html>

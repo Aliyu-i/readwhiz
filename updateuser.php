@@ -1,47 +1,3 @@
-<?php
-
-require "utils/connect.php";
-
-if (isset($_POST["registerFirstName"])) {
-  // var_dump($_POST);
-  // TODO: verify
-
-  $registerFirstName = $_POST["registerFirstName"];
-  $registerLastName = $_POST["registerLastName"];
-  
-  $registerUsername = $_POST["registerUsername"];
-  
-  $registerEmail = $_POST["registerEmail"];
-  
-  $registerPhone = $_POST["registerPhone"];
-  
-  $registerPassword = $_POST["registerPassword"];
-
-
-
-  $sql = "INSERT INTO `user`(`username`, `firstname`, `lastname`, `email`, `password`, `phone`, `role`)
-  VALUES (:username, :firstname, :lastname, :email, :password, :phone, 'admin')";
-  $stmt = $dbh->prepare($sql);
-
-  $stmt->bindParam(":firstname", $registerFirstName);
-  $stmt->bindParam(":lastname", $registerLastName);
-  $stmt->bindParam(":username", $registerUsername);
-  $stmt->bindParam(":email", $registerEmail);
-  $stmt->bindParam(":phone", $registerPhone);
-  $stmt->bindParam(":password", $registerPassword);
-
-  if ($stmt->execute()) {    
-    $msg = "Admin created.";
-    header("Location: dashboard.php?msg=$msg");
-  } else {
-    echo "Unable to register admin.";
-  }
-
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,10 +12,10 @@ if (isset($_POST["registerFirstName"])) {
 </head>
 <body>
 <br>
-    <?php require "includes/nav.php" ?>
-<form method="POST" action="">
-     <!-- First Name input -->
-     <div class="form-outline mb-4"> 
+      <?php require "includes/nav.php" ?>
+
+    <!-- First Name input -->
+    <div class="form-outline mb-4"> 
         <input type="text" id="registerFirstName" name="registerFirstName" class="form-control" />
         <label class="form-label" for="registerFirstName">First Name</label>
       </div><br>
@@ -103,6 +59,5 @@ if (isset($_POST["registerFirstName"])) {
       <center>
         <button type="submit" class="btn btn-success">Submit</button>
       </center>
-</form>
 </body>
 </html>
