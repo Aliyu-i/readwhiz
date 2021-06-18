@@ -24,8 +24,15 @@ if (isset($_POST["BookTitle"])) {
   $uploadfile = $uploaddir . $ISBN;
 
   if (move_uploaded_file($_FILES['Image']['tmp_name'], $uploadfile)) {
-      $sql =" INSERT INTO `book`(`isbn`, `title`, `author`, `link`, `chatroom_link`, `videochat_link`, `about`, `admin_id`) 
-      VALUES (:isbn, :title, :author, :link, :chatroom_link, :videochat_link, :about, :admin_id) ";
+    // Add genre first to database, if it's not already there.
+    $sql = "INSERT IGNORE INTO `genre`(`name`) VALUES (:genre)";
+
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(":genre", $BookGenre);
+    if($stmt->execute()){
+      
+      $sql =" INSERT INTO `book`(`isbn`, `title`, `author`, `link`, `chatroom_link`, `videochat_link`, `about`, `admin_id`, `genre`, `in_library`) 
+      VALUES (:isbn, :title, :author, :link, :chatroom_link, :videochat_link, :about, :admin_id, :genre,1) ";
     
       $stmt = $dbh->prepare($sql);
     
@@ -37,6 +44,7 @@ if (isset($_POST["BookTitle"])) {
       $stmt->bindParam(":videochat_link", $Videochatlink);
       $stmt->bindParam(":about", $Summary);
       $stmt->bindParam(":admin_id", $_SESSION["user"]["username"]);
+      $stmt->bindParam(":genre", $BookGenre);
 
       if($stmt->execute()) {
         header("Location: library.php");
@@ -44,6 +52,13 @@ if (isset($_POST["BookTitle"])) {
       } else {
         echo "Failed to add book\n";
       }
+      
+    } 
+    else {
+      echo "Failed to add book\n";
+    };
+
+
       
   } else {
       echo "Failed to save book cover. Try again.\n";
