@@ -1,6 +1,39 @@
 <?php
 
 require "includes/protect.php";
+require "includes/connect.php";
+
+
+// Check if there's a genre filter
+if (isset($_GET["filterGenre"])) {
+  $genre = $_GET["filterGenre"];
+  $sql = "SELECT * FROM `book` WHERE genre";
+} else {
+  $sql = "SELECT * FROM `book`";
+
+}
+
+
+$stmt = $dbh->prepare($sql);
+
+$stmt->execute();
+$books = $stmt->fetchAll();
+
+if ($books == false) {
+  // Error?
+  exit();
+}
+
+$sql = "SELECT * FROM `genre`";
+$stmt = $dbh->prepare($sql);
+
+$stmt->execute();
+$genres = $stmt->fetchAll();
+
+if ($genres == false) {
+  // Error?
+  exit();
+}
 
 ?>
 <!DOCTYPE html>
@@ -28,70 +61,52 @@ require "includes/protect.php";
 				Begin your reading journey by selecting a book or an article..
 			</h2>
 		</center><br>
-		<h3>
-			Fiction Section
-		</h3><br>
-		<h2>
+		<!-- <h2>
 			Drama
-		</h2>
+		</h2> -->
+
+    <form action="">
+      <label for="filterGenre">Filter by genre:</label>
+      <select name="filterGenre" id="filterGenre">
+        <option value="" selected>Choose...</option>
+        <?php foreach ($genres as $genre) : ?>
+          <option value="<?= $genre["name"] ?>"><?= $genre["name"] ?></option>
+        <?php endforeach; ?>
+      </select>
+      <button type="submit">Filter</button>
+    </form>
 
 		<div class="container">
 
 			<div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <?php foreach ($books as $book): ?>
 				<div class="col">
 					<div class="card mb-3 bg-wheat">
 						<div class="row g-0">
 							<div class="col-md-4 col">
-								<img src="images/bookcovers/the_mistake_book.jpg" alt="..." class="img-fluid">
+								<img src="images/bookcovers/<?= $book["isbn"] ?>" alt="..." class="img-fluid">
 							</div>
 							<div class="col-md-8 col">
 								<div class="card-body">
-									<h5 class="card-title">The Mistake (Off-Campus #2)</h5>
-									<p class="card-text">College junior John Logan can get any girl he wants.
-										For this hockey star, life is a parade of parties and hook-ups,
-										but behind his killer grins and easygoing charm, he hides growing despair about the 
-                    dead-end road he’ll be forced to walk after graduation. 
-									</p>
-									<p class="card-text"><small class="text-muted">By Elle Kennedy</small></p>
-									<a class="btn btn-outline-secondary" href="https://api.freepdfconvert.com/d/ae5a206faea8f59930b4edd41542e882">Get Book</a>
-									<a href="https://tlk.io/the_mistake" class="btn btn-outline-secondary">Chat</a>
-									<a href="https://app-301423.megameeting.com/meeting/?id=6115840" class="btn btn-outline-secondary">Video</a>
+									<h5 class="card-title"><?= $book["title"] ?></h5>
+									<p class="card-text"><?= $book["about"] ?> </p>
+									<p class="card-text"><small class="text-muted">By <?= $book["author"] ?></small></p>
+									<a class="btn btn-outline-secondary" href="<?= $book["link"] ?>">Get Book</a>
+									<a href="<?= $book["chatroom_link"] ?>" class="btn btn-outline-secondary">Chat</a>
+									<a href="<?= $book["videochat_link"] ?>" class="btn btn-outline-secondary">Video</a>
 								</div>
 							</div>
 
 						</div>
 					</div>
 				</div>
-				<div class="col">
-					<div class="card mb-3 bg-wheat">
-						<div class="row g-0">
-							<div class="col-md-4 col">
-								<img src="images/bookcovers/prettyreckless.jpg" alt="..." class="img-fluid">
-							</div>
-							<div class="col-md-8 col">
-								<div class="card-body">
-									<h5 class="card-title">Pretty Reckless (All Saints High #1)</h5>
-									<p class="card-text">They say revenge is a dish best served cold.
-                    I’d had four years to stew on what Daria Followhill did to me, and now my heart was completely iced.
-                    I took her first kiss.
-                    She took the only thing I loved.
-                    I was poor.
-                    She was rich.
-									</p>
-									<p class="card-text"><small class="text-muted">By LJ Shen</small></p>
-									<a class="btn btn-outline-secondary" href="https://api.freepdfconvert.com/d/6faf103368ea95a8805529b42f6b5283">Get Book</a>
-									<a href="http://ridwhizz.chatango.com/" class="btn btn-outline-secondary">Chat</a>
-									<a href="#" class="btn btn-outline-secondary">Video</a>
-								</div>
-							</div>
+        <?php endforeach; ?>
 
-						</div>
-					</div>
-				</div>
 
 			</div>
 		</div><br>
-
+<!-- 
     <h2>
       Action
     </h2>
@@ -203,7 +218,7 @@ require "includes/protect.php";
         </div>
       </div>
 
-    </div>
+    </div> -->
 
 	</div>
 </body>

@@ -1,6 +1,58 @@
 <?php
 
 require "includes/protect.php";
+require "includes/connect.php";
+
+$sql = "SELECT * FROM `genre`";
+$stmt = $dbh->prepare($sql);
+
+$stmt->execute();
+$genres = $stmt->fetchAll();
+
+if (isset($_POST["BookTitle"])) {
+  $BookTitle = $_POST["BookTitle"];
+  $ISBN = $_POST["ISBN"];
+  $Author = $_POST["Author"];
+  $BookGenre = $_POST["BookGenre"];
+  $Chatroomlink = $_POST["Chatroomlink"];
+  $Videochatlink = $_POST["Videochatlink"];
+  $Booklink = $_POST["Booklink"];
+  $Summary = $_POST["Summary"];
+
+  $uploaddir = 'images/bookcovers/';
+  // Store the image in the bookcovers directory with its ISBN
+  $uploadfile = $uploaddir . $ISBN;
+
+  if (move_uploaded_file($_FILES['Image']['tmp_name'], $uploadfile)) {
+      $sql =" INSERT INTO `book`(`isbn`, `title`, `author`, `link`, `chatroom_link`, `videochat_link`, `about`, `admin_id`) 
+      VALUES (:isbn, :title, :author, :link, :chatroom_link, :videochat_link, :about, :admin_id) ";
+    
+      $stmt = $dbh->prepare($sql);
+    
+      $stmt->bindParam(":isbn", $ISBN);
+      $stmt->bindParam(":title", $BookTitle);
+      $stmt->bindParam(":author", $Author);
+      $stmt->bindParam(":link", $Booklink);
+      $stmt->bindParam(":chatroom_link", $Chatroomlink);
+      $stmt->bindParam(":videochat_link", $Videochatlink);
+      $stmt->bindParam(":about", $Summary);
+      $stmt->bindParam(":admin_id", $_SESSION["user"]["username"]);
+
+      if($stmt->execute()) {
+        header("Location: library.php");
+        exit();
+      } else {
+        echo "Failed to add book\n";
+      }
+      
+  } else {
+      echo "Failed to save book cover. Try again.\n";
+  }
+
+
+
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -23,43 +75,57 @@ require "includes/protect.php";
         <h3 style="color: white;">
             Book details
         </h3>
-        <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Book Title" aria-label="Book Title">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" placeholder="ISBN" aria-label="ISBN">
-            </div>
-        </div><br>
+        <form action="" method="POST" enctype="multipart/form-data">
+          <div class="row">
+              <div class="col">
+                <input type="text"name="BookTitle" class="form-control" placeholder="Book Title" aria-label="Book Title">
+              </div>
+              <div class="col">
+                <input type="text" name="ISBN" class="form-control" placeholder="ISBN" aria-label="ISBN">
+              </div>
+          </div><br>
 
-        <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Author" aria-label="Author">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Book Genre" aria-label="Book Genre">
-            </div>
-        </div><br>
-        <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Chatroom link" aria-label="Chatroom link">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Video chat link" aria-label="Video chat link">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Book link" aria-label="Book link">
-            </div>
-        </div><br>
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Summary" aria-label="Summary">
-            </div>
-        </div><br>
-      </div>
+          <div class="row">
+              <div class="col">
+                <input type="text"name="Author" class="form-control" placeholder="Author" aria-label="Author">
+              </div>
+              <div class="col">
+                  <input list="genres" type="text" name="BookGenre" class="form-control" placeholder="Book Genre" aria-label="Book Genre">
+                  <datalist id="genres">
+                    <?php foreach ($genres as $genre): ?>
+                      <option value="<?php echo $genre["name"] ?>">
+                    <?php endforeach; ?>
+                  </datalist>
+              </div>
+          </div><br>
+          <div class="row">
+              <div class="col">
+                <input type="text" name="Chatroomlink" class="form-control" placeholder="Chatroom link" aria-label="Chatroom link">
+              </div>
+              <div class="col">
+                  <input type="text" name="Videochatlink" class="form-control" placeholder="Video chat link" aria-label="Video chat link">
+              </div>
+              <div class="col">
+                  <input type="text"name="Booklink" class="form-control" placeholder="Book link" aria-label="Book link">
+              </div>
+          </div><br>
+          <div class="row">
+              <div class="col">
+                  <input type="text" name="Summary" class="form-control" placeholder="Summary" aria-label="Summary">
+              </div>
+          </div><br>
+          <div class="row">
+              <div class="col">
+                  <label for="bookcover">Book cover</label>
+                  <input type="file" id="bookcover" name="Image" accept="image/*" class="form-control" placeholder="Book cover">
+              </div>
+          </div><br>
+        </div>
 
-      <center>
-        <button type="button" class="btn btn-success">Submit</button>
-      </center>
+        <center>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </center>
+      </form>
+
 </body>
 </html>

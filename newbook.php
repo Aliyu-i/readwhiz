@@ -37,7 +37,14 @@ require "includes/connect.php";
               <input type="text" class="form-control" placeholder="Book Edition" aria-label="Book Edition">
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Book Genre" aria-label="Book Genre">
+                <input list="genres" type="text" class="form-control" placeholder="Book Genre" aria-label="Book Genre">
+                <datalist id="genres">
+                  <option value="Chocolate">
+                  <option value="Coconut">
+                  <option value="Mint">
+                  <option value="Strawberry">
+                  <option value="Vanilla">
+              </datalist>
             </div>
             <div class="col">
                 <input type="text" class="form-control" placeholder="Title of interested Book to trade for" aria-label="Interested Book">
