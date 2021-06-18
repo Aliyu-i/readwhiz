@@ -31,8 +31,8 @@ if (isset($_POST["BookTitle"])) {
     $stmt->bindParam(":genre", $BookGenre);
     if($stmt->execute()){
       
-      $sql =" INSERT INTO `book`(`isbn`, `title`, `author`, `link`, `chatroom_link`, `videochat_link`, `about`, `admin_id`, `genre`, `in_library`) 
-      VALUES (:isbn, :title, :author, :link, :chatroom_link, :videochat_link, :about, :admin_id, :genre,1) ";
+      $sql =" INSERT INTO `book`(`isbn`, `title`, `author`, `link`, `chatroom_link`, `videochat_link`, `about`, `admin_id`, `genre`) 
+      VALUES (:isbn, :title, :author, :link, :chatroom_link, :videochat_link, :about, :admin_id, :genre) ";
     
       $stmt = $dbh->prepare($sql);
     

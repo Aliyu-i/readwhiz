@@ -7,11 +7,11 @@ require "includes/connect.php";
 // Check if there's a genre filter
 if (isset($_GET["filterGenre"]) && $_GET["filterGenre"] !== "") {
   $genre = $_GET["filterGenre"];
-  $sql = "SELECT * FROM `book` WHERE genre = :genre AND in_library = 1";
+  $sql = "SELECT * FROM `book` WHERE genre = :genre ";
   $stmt = $dbh->prepare($sql);
   $stmt->bindParam(":genre", $genre);
 } else {
-  $sql = "SELECT * FROM `book` WHERE in_library = 1";
+  $sql = "SELECT * FROM `book` ";
   $stmt = $dbh->prepare($sql);
 }
 
@@ -24,7 +24,7 @@ if ($books === false) {
   exit();
 }
 
-$sql = "SELECT genre FROM `book` WHERE in_library = 1";
+$sql = "SELECT * FROM `genre`";
 $stmt = $dbh->prepare($sql);
 
 $stmt->execute();
@@ -71,12 +71,12 @@ if ($genres == false) {
 				<option value="">Choose...</option>
 				<?php foreach ($genres as $genre) : ?>
 				<option
-					value="<?= $genre["genre"] ?>"
-					<?php if (isset($_GET["filterGenre"]) && $_GET["filterGenre"] === $genre["genre"]) {
+					value="<?= $genre["name"] ?>"
+					<?php if (isset($_GET["filterGenre"]) && $_GET["filterGenre"] === $genre["name"]) {
 					echo "selected";
 					} ?>
 				>
-					<?= $genre["genre"] ?>
+					<?= $genre["name"] ?>
 				</option>
 				<?php endforeach; ?>
 			</select>

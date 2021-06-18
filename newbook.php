@@ -25,29 +25,19 @@ require "includes/connect.php";
         </h3>
         <div class="row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="Book Title" aria-label="Book Title">
+              <input type="text" name="" class="form-control" placeholder="Book Title" aria-label="Book Title">
             </div>
             <div class="col">
-              <input type="text" class="form-control" placeholder="Author" aria-label="Author">
+              <input type="text" name="" class="form-control" placeholder="Author" aria-label="Author">
             </div>
         </div><br>
 
         <div class="row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="Book Edition" aria-label="Book Edition">
+              <input type="text" name="" class="form-control" placeholder="Title of interested Book to trade for" aria-label="Interested Book Title">
             </div>
             <div class="col">
-                <input list="genres" type="text" class="form-control" placeholder="Book Genre" aria-label="Book Genre">
-                <datalist id="genres">
-                  <option value="Chocolate">
-                  <option value="Coconut">
-                  <option value="Mint">
-                  <option value="Strawberry">
-                  <option value="Vanilla">
-              </datalist>
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Title of interested Book to trade for" aria-label="Interested Book">
+                <input type="text" name="" class="form-control" placeholder="Interested Book Author" aria-label="Interested Book Author">
             </div>
         </div><br>
         <select class="form-select" aria-label="Default select example">
