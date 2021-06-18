@@ -1,6 +1,36 @@
 <?php
 require "includes/protect.php";
 require "includes/connect.php";
+
+if (isset($_POST["booktitle"])){
+  $booktitle = $_POST["booktitle"];
+  $author = $_POST["author"];
+  $interestedbooktitle = $_POST["interestedbooktitle"];
+  $interestedbookauthor = $_POST["interestedbookauthor"];
+  $bookcondition = $_POST["bookcondition"];
+
+  $sql = "INSERT INTO `trade`( `book_title`, `book_author`, `interested_book_title`, `interested_book_author`, `book_condition`, `initiator_id`) 
+  VALUES (:book_title,:book_author,:interested_book_title,:interested_book_author,:book_condition,:initiator_id)";
+
+  $stmt=$dbh->prepare($sql);
+
+  $stmt->bindParam(":book_title", $booktitle);
+  $stmt->bindParam(":book_author", $author);
+  $stmt->bindParam(":interested_book_title", $interestedbooktitle);
+  $stmt->bindParam(":interested_book_author", $interestedbookauthor);
+  $stmt->bindParam(":book_condition", $bookcondition);
+  $stmt->bindParam(":initiator_id", $_SESSION["user"]["username"]);
+
+  if($stmt->execute()){
+    header("location:trade.php");
+  }
+  else{
+    echo "Could not add book";
+  }
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,32 +53,36 @@ require "includes/connect.php";
         <h3 style="color: white;">
             Book details
         </h3>
-        <div class="row">
-            <div class="col">
-              <input type="text" name="" class="form-control" placeholder="Book Title" aria-label="Book Title">
-            </div>
-            <div class="col">
-              <input type="text" name="" class="form-control" placeholder="Author" aria-label="Author">
-            </div>
-        </div><br>
 
-        <div class="row">
-            <div class="col">
-              <input type="text" name="" class="form-control" placeholder="Title of interested Book to trade for" aria-label="Interested Book Title">
-            </div>
-            <div class="col">
-                <input type="text" name="" class="form-control" placeholder="Interested Book Author" aria-label="Interested Book Author">
-            </div>
-        </div><br>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Select Book condition</option>
-            <option value="1">New</option>
-            <option value="2">Fairly Used</option>
-            <option value="3">Manageable</option>
-          </select>
-      </div><br><br><br>
-      <center>
-        <button type="button" class="btn btn-success">Submit</button>
-      </center>
+        <form action="" method="POST">
+          
+          <div class="row">
+              <div class="col">
+                <input type="text" name="booktitle" class="form-control" placeholder="Book Title" aria-label="Book Title">
+              </div>
+              <div class="col">
+                <input type="text" name="author" class="form-control" placeholder="Author" aria-label="Author">
+              </div>
+          </div><br>
+
+          <div class="row">
+              <div class="col">
+                <input type="text" name="interestedbooktitle" class="form-control" placeholder="Title of interested Book to trade for" aria-label="Interested Book Title">
+              </div>
+              <div class="col">
+                  <input type="text" name="interestedbookauthor" class="form-control" placeholder="Interested Book Author" aria-label="Interested Book Author">
+              </div>
+          </div><br>
+          <select class="form-select" name="bookcondition" aria-label="Default select example">
+              <option selected>Select Book condition</option>
+              <option value="new">New</option>
+              <option value="fairly used">Fairly Used</option>
+              <option value="old">Old</option>
+            </select>
+          </div><br><br><br>
+          <center>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </center>
+        </form>
 </body>
 </html>

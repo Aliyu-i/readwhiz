@@ -1,6 +1,9 @@
 <?php
 require "includes/protect.php";
 require "includes/connect.php";
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,5 +28,19 @@ require "includes/connect.php";
         </h2><br>
         <a class="btn btn-secondary"href="newbook.php">Add new book</a>
       </center>
+
+      <h5>Trader details</h5>
+      First Name: 
+      Last Name:
+      Email: 
+      Phone:
+
+      <h5>Book Details</h5>
+      Title:
+      Authour:
+      Condition:
+      <br>
+      Interested Book Title:
+      Author:
 </body>
 </html>
