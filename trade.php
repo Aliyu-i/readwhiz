@@ -1,3 +1,8 @@
+<?php
+require "includes/protect.php";
+require "includes/connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

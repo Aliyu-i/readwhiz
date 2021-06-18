@@ -2,7 +2,7 @@
 
 session_start();
 
-require "utils/connect.php";
+require "includes/connect.php";
 
 if (isset($_POST["registerFirstName"])) {
   // var_dump($_POST);
@@ -33,9 +33,13 @@ if (isset($_POST["registerFirstName"])) {
   $stmt->bindParam(":password", $registerPassword);
 
   if ($stmt->execute()) {
-    $_SESSION['username'] = $registerUsername;
+    $_SESSION["user"] = [
+      "username" => $registerUsername,
+      "role" => "user"
+    ];
     
     header("Location: index.php");
+    exit();
   } else {
     $error = "Unable to sign up.";
   }
@@ -50,7 +54,7 @@ else if (isset($_POST["loginName"])) {
 
   // Find the user in the db whose email or username is loginName
   // and password is loginPassword
-  $sql = "SELECT `username` FROM `user` WHERE (username = :loginName OR email = :loginName) AND password = :password";
+  $sql = "SELECT `username`, role FROM `user` WHERE (username = :loginName OR email = :loginName) AND password = :password";
   $stmt = $dbh->prepare($sql);
   $stmt->bindParam(":loginName", $loginName);
   $stmt->bindParam(":password", $loginPassword);
@@ -58,8 +62,13 @@ else if (isset($_POST["loginName"])) {
   $stmt->execute();
 
   foreach ($stmt as $row) {
-    $_SESSION['username'] = $row["username"];
+    $_SESSION["user"] = [
+      "username" => $row["username"],
+      "role" => $row["role"]
+    ];
+
     header("Location: index.php");
+    exit();
   }
   
 }

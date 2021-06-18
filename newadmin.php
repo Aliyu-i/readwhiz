@@ -1,6 +1,7 @@
 <?php
 
-require "utils/connect.php";
+require "includes/connect.php";
+require "includes/protect.php"
 
 if (isset($_POST["registerFirstName"])) {
   // var_dump($_POST);

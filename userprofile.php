@@ -1,3 +1,25 @@
+<?php
+require "includes/protect.php";
+require "includes/connect.php";
+
+$sql = "SELECT * FROM `user` WHERE username = :username";
+$stmt = $dbh->prepare($sql);
+
+$sessionUser = $_SESSION["user"];
+$stmt->bindParam(":username", $sessionUser["username"]);
+
+$stmt->execute();
+
+$user = $stmt->fetch();
+
+if ($user == false) {
+    // Error, something's wrong
+    exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +37,11 @@
     <?php require "includes/nav.php" ?>
     <div class="container">
 
-    Username: <br>
-    First Name: <br>
-    Last Name:  <br>
-    Email:  <br>
-    Phone:  <br>
+    Username: <?php echo $user["username"] ?> <br>
+    First Name: <?php echo $user["firstname"] ?> <br>
+    Last Name: <?php echo $user["lastname"] ?> <br>
+    Email: <?php echo $user["email"] ?> <br>
+    Phone: <?php echo $user["phone"] ?> <br>
 
     <center>
         <button type="button" class="btn btn-success">Update Profile</button>
